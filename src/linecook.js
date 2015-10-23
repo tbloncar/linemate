@@ -13,9 +13,11 @@ const pointLabels = {
 };
 
 const defaults = {
-  path: 'order',
+  color: '#000',
   entryPoint: 'center',
-  exitPoint: 'center'
+  exitPoint: 'center',
+  order: 'keep',
+  width: 1
 };
 
 class Node {
@@ -144,7 +146,7 @@ function getCanvasBounds(nodes) {
 }
 
 function connect(nodes, opts) {
-  opts = Object.assign(defaults, opts);
+  opts = Object.assign({}, defaults, opts);
   nodes = nodes.map((node) => new Node(node, opts));
 
   const bounds = getCanvasBounds(nodes);
@@ -157,6 +159,8 @@ function connect(nodes, opts) {
     };
   });
 
+  context.strokeStyle = opts.color;
+  context.lineWidth = opts.width;
   context.beginPath();
   context.moveTo(steps[0].exitPoint.x, steps[0].exitPoint.y);
 

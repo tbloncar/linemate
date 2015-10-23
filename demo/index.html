@@ -15,11 +15,21 @@
         var anode = document.getElementById('a');
         var bnode = document.getElementById('b');
         var cnode = document.getElementById('c');
-        var nodes = [anode, bnode, cnode];
 
-        linecook.connect(nodes, {
-          entryPoint: 'center',
-          exitPoint: 'center'
+        linecook.connect([anode, bnode, cnode], {
+          color: '#ff3300',
+          entryPoint: 'bottom',
+          exitPoint: 'top',
+          width: 5
+        });
+
+        linecook.connect([anode, bnode], {
+          width: 5
+        });
+
+        linecook.connect([cnode, anode], {
+          color: 'orange',
+          width: 5
         });
       });
     </script>
