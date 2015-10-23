@@ -1,37 +1,166 @@
-## linecook.js
+## :stew: linecook.js
 
 Cook up canvas lines between DOM nodes with ease.
+
+### Installation
+
+For now, grab `linecook.min.js` from `dist/` and include it in your project.
+No dependencies are needed, and `linecook` is made global.
 
 ### Usage
 
 Use linecook to render canvas lines between DOM nodes.
 
-#### Basic Example
+#### Example
 
-Connect three `div` elements with red, dashed lines, entering
-each element at the bottom (center) and exiting at the top (center).
-(Note that the options object is—as one might surmise—optional. Defaults
+Connect three `div` elements with red, dashed lines.
+(Note that the options object is—as one might guess—**optional**. Defaults
 are detailed below.)
 
 Provide elements to connect:
 
 ```html
-<div id="a" class="box"></div>
-<div id="b" class="box"></div>
-<div id="c" class="box"></div>
+<div id="a" class="node"></div>
+<div id="b" class="node"></div>
+<div id="c" class="node"></div>
 ```
 
 Use `linecook.connect` to add lines between the elements.
 ```js
 window.addEventListener('load', function(e) {
-  // Create an incomplete graph
-  linecook.connect('.box', {
+  // Cook up some canvas lines!
+  linecook.connect('.node', {
     color: '#ff3300',
     dashed: true,
-    entryPoint: 'bottom',
-    exitPoint: 'top',
     width: 10
   });
 });
 ```
 
+#### linecook.connect
+
+Connect nodes such that the last node **is not** connected back to the first node.
+
+```js
+/*
+ * Connect two or more DOM nodes without completeness.
+ *
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
+ */
+function connect(nodes, opts = {}) {
+  // ...
+}
+```
+
+#### linecook.complete
+
+Connect nodes such that the last node **is** connected back to the first node.
+
+```js
+/*
+ * Connect two or more DOM nodes with completeness.
+ *
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
+ */
+function complete(nodes, opts = {}) {
+  // ...
+}
+```
+
+#### linecook.custom
+
+Connect nodes with your own custom algorithm.
+
+```js
+/*
+ * Connect two or more DOM nodes with a custom
+ * stroke algorithm.
+ *
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
+ * @param {function} doStrokes - Custom stroke algorithm callback
+ */
+function custom(nodes, opts = {}, doStrokes) {
+  // ...
+}
+```
+
+##### Custom Example
+
+In the custom stroke algorithm callback, we have access to both the canvas
+`context` and the `pnodes` collection. The `pnodes` collection consists of
+objects with an `entryPoint` and `exitPoint`—these are canvas coordinates for
+each node derived from the `entryPoint` and `exitPoint` options. Each point has
+an `x` and a `y` property.
+
+In this example, we simply draw a wide pink line from the top left of the
+canvas (0, 0) to each node entry point.
+
+```js
+linecook.custom('.node', {
+  color: 'pink',
+  width: 30
+}, function(context, pnodes) {
+  context.moveTo(0, 0);
+
+  for(var i = 0, l = pnodes.length; i < l; i++) {
+    var pnode = pnodes[i];
+
+    context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
+    context.moveTo(0, 0);
+  }
+});
+```
+
+### Options
+
+The options object can be used to modify canvas line styles, node entry and exit points, etc.
+
+| Option          | Description                   | Default
+|-----------------|-------------------------------|---------------------------
+| cap             | [CanvasRenderingContext2D.lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) | 'round'
+| color           | [CanvasRenderingContext2D.strokeStyle](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/strokeStyle) | '#000'
+| dashed          | [CanvasRenderingContext2D.setLineDash()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash) | false
+| dashOffset      | [CanvasRenderingContext2D.lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) | 0
+| dashSegments    | [CanvasRenderingContext2D.setLineDash()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash) segments | [5, 15]
+| entryPoint      | The location at which each node is entered by an incoming line (valid values outlined below) | 'center'
+| exitPoint       | The location at which each node is exited by an outgoing line (valid values outlined below) | 'center'
+| join            | [CanvasRenderingContext2D.lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) | 'round'
+| miterLimit      | [CanvasRenderingContext2D.miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) | 10
+| width           | [CanvasRenderingContext2D.lineWidth](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth) | 1
+
+Valid values for `entryPoint` and `exitPoint` options include the following:
+
+- 'center'
+- 'topLeft'
+- 'top'
+- 'topRight'
+- 'right'
+- 'bottomRight'
+- 'bottom'
+- 'bottomLeft'
+- 'left'
+
+### License
+
+Copyright (c) 2015 Travis Loncar.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

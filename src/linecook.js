@@ -16,8 +16,8 @@ const defaults = {
   cap: 'round',
   color: '#000',
   dashed: false,
-  dashedOffset: 0,
-  dashedSizes: [5, 15],
+  dashOffset: 0,
+  dashSegments: [5, 15],
   entryPoint: 'center',
   exitPoint: 'center',
   join: 'round',
@@ -173,8 +173,8 @@ function setup(nodes, opts) {
   context.miterLimit = opts.miterLimit;
 
   if(opts.dashed) {
-    context.setLineDash(opts.dashedSizes);
-    context.lineDashOffset = opts.dashedOffset;
+    context.setLineDash(opts.dashSegments);
+    context.lineDashOffset = opts.dashOffset;
   }
 
   context.beginPath();
@@ -225,20 +225,20 @@ function doConnect(context, pnodes) {
 /*
  * Connect two or more DOM nodes without completeness.
  *
- * @param {Array[Node]} - An array of two or more DOM nodes
- * @param {object} - An options object
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
  */
-function connect(nodes, opts) {
+function connect(nodes, opts = {}) {
   draw(nodes, opts, doConnect);
 }
 
 /*
  * Connect two or more DOM nodes with completeness.
  *
- * @param {Array[Node]} - An array of two or more DOM nodes
- * @param {object} - An options object
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
  */
-function complete(nodes, opts) {
+function complete(nodes, opts = {}) {
   draw(nodes, opts, (context, pnodes) => {
     doConnect(context, pnodes);
 
@@ -251,12 +251,13 @@ function complete(nodes, opts) {
  * Connect two or more DOM nodes with a custom
  * stroke algorithm.
  *
- * @param {Array[Node]} - An array of two or more DOM nodes
- * @param {object} - An options object
- * @param {function} - Custom stroke algorithm callback
+ * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {object} opts - An options object
+ * @param {function} doStrokes - Custom stroke algorithm callback
  */
 function custom(nodes, opts, doStrokes) {
-  draw(nodes, opts, doStrokes);
+  const options = opts || {};
+  draw(nodes, options, doStrokes);
 }
 
 const linecook = {
