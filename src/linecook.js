@@ -13,10 +13,15 @@ const pointLabels = {
 };
 
 const defaults = {
+  cap: 'round',
   color: '#000',
+  dashed: false,
+  dashedOffset: 0,
+  dashedSizes: [5, 15],
   entryPoint: 'center',
   exitPoint: 'center',
-  order: 'keep',
+  join: 'round',
+  miterLimit: 10,
   width: 1
 };
 
@@ -167,6 +172,15 @@ function setup(nodes, opts) {
 
   context.strokeStyle = opts.color;
   context.lineWidth = opts.width;
+  context.lineCap = opts.cap;
+  context.lineJoin = opts.join;
+  context.miterLimit = opts.miterLimit;
+
+  if(opts.dashed) {
+    context.setLineDash(opts.dashedSizes);
+    context.lineDashOffset = opts.dashedOffset;
+  }
+
   context.beginPath();
 
   return { context, pnodes };
