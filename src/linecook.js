@@ -187,6 +187,16 @@ function setup(nodes, opts) {
 }
 
 function draw(nodes, opts, doStrokes) {
+  // Use selector to collect nodes
+  if(typeof nodes === 'string') {
+    let selector = nodes;
+    nodes = Array.from(document.querySelectorAll(nodes));
+
+    if(!nodes.length) {
+      throw `No nodes found for the provided selector: ${selector}`;
+    }
+  }
+
   // Canvas setup and node processing
   const { context, pnodes } = setup(nodes, opts);
 
