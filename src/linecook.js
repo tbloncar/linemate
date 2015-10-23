@@ -145,14 +145,16 @@ function getCanvasBounds(nodes) {
   return new Bounds(minT, maxR, maxB, minL);
 }
 
-function connect(nodes, opts) {
+function setup(nodes, opts) {
   opts = Object.assign({}, defaults, opts);
   nodes = nodes.map((node) => new Node(node, opts));
 
   const bounds = getCanvasBounds(nodes);
   const context = createCanvas(bounds);
 
-  let steps = nodes.map(n => {
+  // Map nodes to path nodes, adjusting entry/exit
+  // points with canvas bounds
+  let pnodes = nodes.map(n => {
     return {
       entryPoint: n.entryPoint.getLocalizedCopy(bounds),
       exitPoint: n.exitPoint.getLocalizedCopy(bounds)
@@ -161,14 +163,32 @@ function connect(nodes, opts) {
 
   context.strokeStyle = opts.color;
   context.lineWidth = opts.width;
+
+  // Begin path and move to first node's exit point
   context.beginPath();
-  context.moveTo(steps[0].exitPoint.x, steps[0].exitPoint.y);
+  context.moveTo(pnodes[0].exitPoint.x, pnodes[0].exitPoint.y);
 
-  for(let i = 1, l = steps.length; i < l; i++) {
-    let step = steps[i];
+  return { context, pnodes };
+}
 
-    context.lineTo(step.entryPoint.x, step.entryPoint.y);
-    context.moveTo(step.exitPoint.x, step.exitPoint.y);
+
+/*
+ * Connect two or more DOM nodes without
+ * completeness.
+ *
+ * @param {Array[Node]} - An array of two or more DOM nodes
+ * @param {object} - An options object
+ */
+function connect(nodes, opts) {
+  // Canvas setup and node processing
+  const { context, pnodes } = setup(nodes, opts);
+
+  // Method-specific algorithm
+  for(let i = 1, l = pnodes.length; i < l; i++) {
+    let pnode = pnodes[i];
+
+    context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
+    context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
   }
 
   context.stroke();
