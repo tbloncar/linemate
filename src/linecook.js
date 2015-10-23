@@ -146,6 +146,10 @@ function getCanvasBounds(nodes) {
 }
 
 function setup(nodes, opts) {
+  if(nodes.length < 2) {
+    console.warn('Please provide at least two DOM nodes!');
+  }
+
   opts = Object.assign({}, defaults, opts);
   nodes = nodes.map((node) => new Node(node, opts));
 
