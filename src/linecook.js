@@ -151,10 +151,6 @@ function getCanvasBounds(nodes) {
 }
 
 function setup(nodes, opts) {
-  if(nodes.length < 2) {
-    console.warn('Please provide at least two DOM nodes!');
-  }
-
   opts = Object.assign({}, defaults, opts);
   nodes = nodes.map((node) => new Node(node, opts));
 
@@ -194,6 +190,14 @@ function draw(nodes, opts, doStrokes) {
 
     if(!nodes.length) {
       throw `No nodes found for the provided selector: ${selector}`;
+    }
+  }
+
+  if(nodes.length < 2) {
+    if(nodes.length === 0) {
+      throw `No nodes provided!`;
+    } else {
+      console.warn('Please provide at least two DOM nodes!');
     }
   }
 
