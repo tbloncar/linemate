@@ -1,0 +1,22 @@
+.box {
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  height: 200px;
+  position: absolute;
+  width: 200px;
+}
+
+#a {
+  left: 300px;
+  top: 300px;
+}
+
+#b {
+  left: 600px;
+  top: 20px;
+}
+
+#c {
+  left: 620px;
+  top: 500px;
+}

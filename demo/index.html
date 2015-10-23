@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>linecook</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+  </head>
+  <body>
+    <div id="a" class="box"></div>
+    <div id="b" class="box"></div>
+    <div id="c" class="box"></div>
+    <script src="linecook.min.js"></script>
+    <script>
+      window.addEventListener('load', function(e) {
+        var anode = document.getElementById('a');
+        var bnode = document.getElementById('b');
+        var cnode = document.getElementById('c');
+        var nodes = [anode, bnode, cnode];
+
+        linecook.connect(nodes, {
+          entryPoint: 'center',
+          exitPoint: 'center'
+        });
+      });
+    </script>
+  </body>
+</html>
