@@ -16,23 +16,33 @@
         var bnode = document.getElementById('b');
         var cnode = document.getElementById('c');
 
+        // Create an incomplete graph
         linecook.connect([anode, bnode, cnode], {
           color: '#ff3300',
           entryPoint: 'bottom',
           exitPoint: 'top',
-          width: 5
+          width: 10
         });
 
-        linecook.connect([anode, bnode], {
-          width: 5
-        });
-
-
-        linecook.connect([cnode]);
-
+        // Create a complete graph
         linecook.complete([anode, bnode, cnode], {
           color: 'rgba(0,0,0,0.5)',
           width: 20
+        });
+
+        // Write a custom stroke function
+        linecook.custom([anode, bnode, cnode], {
+          color: 'pink',
+          width: 30
+        }, function(context, pnodes) {
+          context.moveTo(0, 0);
+
+          for(var i = 0, l = pnodes.length; i < l; i++) {
+            var pnode = pnodes[i];
+
+            context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
+            context.moveTo(0, 0);
+          }
         });
       });
     </script>

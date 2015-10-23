@@ -167,10 +167,7 @@ function setup(nodes, opts) {
 
   context.strokeStyle = opts.color;
   context.lineWidth = opts.width;
-
-  // Begin path and move to first node's exit point
   context.beginPath();
-  context.moveTo(pnodes[0].exitPoint.x, pnodes[0].exitPoint.y);
 
   return { context, pnodes };
 }
@@ -187,6 +184,8 @@ function draw(nodes, opts, doStrokes) {
 }
 
 function doConnect(context, pnodes) {
+  context.moveTo(pnodes[0].exitPoint.x, pnodes[0].exitPoint.y);
+
   for(let i = 1, l = pnodes.length; i < l; i++) {
     let pnode = pnodes[i];
 
@@ -220,9 +219,22 @@ function complete(nodes, opts) {
   });
 }
 
+/*
+ * Connect two or more DOM nodes with a custom
+ * stroke algorithm.
+ *
+ * @param {Array[Node]} - An array of two or more DOM nodes
+ * @param {object} - An options object
+ * @param {function} - Custom stroke algorithm callback
+ */
+function custom(nodes, opts, doStrokes) {
+  draw(nodes, opts, doStrokes);
+}
+
 const linecook = {
   connect,
-  complete
+  complete,
+  custom
 };
 
 export default linecook;
