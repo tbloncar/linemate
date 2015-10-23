@@ -175,31 +175,54 @@ function setup(nodes, opts) {
   return { context, pnodes };
 }
 
-
-/*
- * Connect two or more DOM nodes without
- * completeness.
- *
- * @param {Array[Node]} - An array of two or more DOM nodes
- * @param {object} - An options object
- */
-function connect(nodes, opts) {
+function draw(nodes, opts, doStrokes) {
   // Canvas setup and node processing
   const { context, pnodes } = setup(nodes, opts);
 
-  // Method-specific algorithm
+  // Method-specific stroke algorithm
+  doStrokes(context, pnodes);
+
+  // Commence stroke
+  context.stroke();
+}
+
+function doConnect(context, pnodes) {
   for(let i = 1, l = pnodes.length; i < l; i++) {
     let pnode = pnodes[i];
 
     context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
     context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
   }
+}
 
-  context.stroke();
+/*
+ * Connect two or more DOM nodes without completeness.
+ *
+ * @param {Array[Node]} - An array of two or more DOM nodes
+ * @param {object} - An options object
+ */
+function connect(nodes, opts) {
+  draw(nodes, opts, doConnect);
+}
+
+/*
+ * Connect two or more DOM nodes with completeness.
+ *
+ * @param {Array[Node]} - An array of two or more DOM nodes
+ * @param {object} - An options object
+ */
+function complete(nodes, opts) {
+  draw(nodes, opts, (context, pnodes) => {
+    doConnect(context, pnodes);
+
+    // Connect back to first node to complete path
+    context.lineTo(pnodes[0].entryPoint.x, pnodes[0].entryPoint.y);
+  });
 }
 
 const linecook = {
-  connect
+  connect,
+  complete
 };
 
 export default linecook;

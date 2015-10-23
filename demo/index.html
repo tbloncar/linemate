@@ -27,12 +27,13 @@
           width: 5
         });
 
-        linecook.connect([cnode, anode], {
-          color: 'orange',
-          width: 5
-        });
 
         linecook.connect([cnode]);
+
+        linecook.complete([anode, bnode, cnode], {
+          color: 'rgba(0,0,0,0.5)',
+          width: 20
+        });
       });
     </script>
   </body>
