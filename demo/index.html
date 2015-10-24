@@ -16,8 +16,11 @@
     <script>
       window.addEventListener('load', function(e) {
         linemate.confine('#container-1');
+        linemate.defaults({
+          color: '#eee'
+        });
+
         linemate.complete('.node', {
-          color: '#eee',
           width: 20
         });
 

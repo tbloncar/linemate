@@ -51,7 +51,7 @@ Connect nodes such that the last node **is not** connected back to the first nod
 /*
  * Connect two or more DOM nodes without completeness.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  */
 function connect(nodes, opts = {}) {
@@ -67,7 +67,7 @@ Connect nodes such that the last node **is** connected back to the first node.
 /*
  * Connect two or more DOM nodes with completeness.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  */
 function complete(nodes, opts = {}) {
@@ -84,7 +84,7 @@ Connect nodes with your own custom algorithm.
  * Connect two or more DOM nodes with a custom
  * stroke algorithm.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  * @param {function} doStrokes - Custom stroke algorithm callback
  */
@@ -154,6 +154,21 @@ Confine canvas to parent node:
 ```js
 linemate.confine('#container-1');
 linemate.connect('.node');
+```
+
+#### linemate.defaults
+
+Set custom default options.
+
+```js
+/*
+ * Set custom default options
+ *
+ * @param {object} custom - Custom linemate defaults
+ */
+function defaults(custom = {}) {
+  // ...
+}
 ```
 
 ### Options

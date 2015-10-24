@@ -14,7 +14,7 @@ const pointLabels = {
   left: 8,
 };
 
-const defaults = {
+const defaultOpts = {
   cap: 'round',
   color: '#000',
   dashed: false,
@@ -153,7 +153,7 @@ function getCanvasBounds(nodes) {
 }
 
 function setup(nodes, opts) {
-  opts = Object.assign({}, defaults, opts);
+  opts = Object.assign({}, defaultOpts, opts);
   nodes = nodes.map((node) => new Node(node, opts));
 
   const bounds = getCanvasBounds(nodes);
@@ -231,6 +231,15 @@ function doConnect(context, pnodes) {
 }
 
 /*
+ * Set custom default options
+ *
+ * @param {object} custom - Custom linemate defaults
+ */
+function defaults(custom = {}) {
+  Object.assign(defaultOpts, custom);
+}
+
+/*
  * Confine linemate to a common parent node
  * other than 'document.body'
  *
@@ -247,7 +256,7 @@ function confine(node) {
 /*
  * Connect two or more DOM nodes without completeness.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  */
 function connect(nodes, opts = {}) {
@@ -257,7 +266,7 @@ function connect(nodes, opts = {}) {
 /*
  * Connect two or more DOM nodes with completeness.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  */
 function complete(nodes, opts = {}) {
@@ -273,7 +282,7 @@ function complete(nodes, opts = {}) {
  * Connect two or more DOM nodes with a custom
  * stroke algorithm.
  *
- * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector
+ * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
  * @param {object} opts - An options object
  * @param {function} doStrokes - Custom stroke algorithm callback
  */
@@ -283,6 +292,7 @@ function custom(nodes, opts, doStrokes) {
 }
 
 const linemate = {
+  defaults,
   confine,
   connect,
   complete,
