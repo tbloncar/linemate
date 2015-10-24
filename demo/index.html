@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>linecook</title>
+    <title>linemate</title>
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
   </head>
   <body>
     <div id="a" class="box"></div>
     <div id="b" class="box"></div>
     <div id="c" class="box"></div>
-    <script src="linecook.min.js"></script>
+    <script src="linemate.min.js"></script>
     <script>
       window.addEventListener('load', function(e) {
         var anode = document.getElementById('a');
@@ -17,7 +17,7 @@
         var cnode = document.getElementById('c');
 
         // Create an incomplete graph
-        linecook.connect('.box', {
+        linemate.connect('.box', {
           color: '#ff3300',
           dashed: true,
           entryPoint: 'bottom',
@@ -26,13 +26,13 @@
         });
 
         // Create a complete graph
-        linecook.complete([anode, bnode, cnode], {
+        linemate.complete([anode, bnode, cnode], {
           color: 'rgba(0,0,0,0.5)',
           width: 20
         });
 
         // Write a custom stroke function
-        linecook.custom([anode, bnode, cnode], {
+        linemate.custom([anode, bnode, cnode], {
           color: 'pink',
           width: 30
         }, function(context, pnodes) {

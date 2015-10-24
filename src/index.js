@@ -1,15 +1,15 @@
 /**
- *     ___                             __
- *    / (_)___  ___  _________  ____  / /__
- *   / / / __ \/ _ \/ ___/ __ \/ __ \/ //_/
- *  / / / / / /  __/ /__/ /_/ / /_/ / ,<
- * /_/_/_/ /_/\___/\___/\____/\____/_/|_|
- *
- * linecook.js | version 0.0.1
+ *     ___                            __
+ *    / (_)___  ___  ____ ___  ____ _/ /____
+ *   / / / __ \/ _ \/ __ `__ \/ __ `/ __/ _ \
+ *  / / / / / /  __/ / / / / / /_/ / /_/  __/
+ * /_/_/_/ /_/\___/_/ /_/ /_/\__,_/\__/\___/
+
+ * linemate.js | version 0.0.1
  * (c) Travis Loncar (https://github.com/tbloncar)
  */
 
-import linecook from './linecook';
+import linemate from './linemate';
 
-window.linecook = linecook;
-export default linecook;
+window.linemate = linemate;
+export default linemate;

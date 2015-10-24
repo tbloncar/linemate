@@ -26,7 +26,7 @@ function compile(watch) {
   function rebundle() {
     bundler.bundle()
       .on('error', function(err) { console.error(err); this.emit('end'); })
-      .pipe(source('linecook.min.js'))
+      .pipe(source('linemate.min.js'))
       .pipe(buffer())
       .pipe(uglify())
       .pipe(sourcemaps.init({ loadMaps: true }))

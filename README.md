@@ -1,15 +1,15 @@
-## :stew: linecook.js
+## :dancers: linemate.js
 
-Cook up canvas lines between DOM nodes with ease.
+Render canvas lines between DOM nodes with ease.
 
 ### Installation
 
-For now, grab `linecook.min.js` from `dist/` and include it in your project.
-No dependencies are needed, and `linecook` is made global.
+For now, grab `linemate.min.js` from `dist/` and include it in your project.
+No dependencies are needed, and `linemate` is made global.
 
 ### Usage
 
-Use linecook to render canvas lines between DOM nodes.
+Use linemate to render canvas lines between DOM nodes.
 
 #### Example
 
@@ -25,11 +25,11 @@ Provide elements to connect:
 <div id="c" class="node"></div>
 ```
 
-Use `linecook.connect` to add lines between the elements.
+Use `linemate.connect` to add lines between the elements.
 ```js
 window.addEventListener('load', function(e) {
-  // Cook up some canvas lines!
-  linecook.connect('.node', {
+  // Render some canvas lines!
+  linemate.connect('.node', {
     color: '#ff3300',
     dashed: true,
     width: 10
@@ -37,7 +37,7 @@ window.addEventListener('load', function(e) {
 });
 ```
 
-#### linecook.connect
+#### linemate.connect
 
 Connect nodes such that the last node **is not** connected back to the first node.
 
@@ -53,7 +53,7 @@ function connect(nodes, opts = {}) {
 }
 ```
 
-#### linecook.complete
+#### linemate.complete
 
 Connect nodes such that the last node **is** connected back to the first node.
 
@@ -69,7 +69,7 @@ function complete(nodes, opts = {}) {
 }
 ```
 
-#### linecook.custom
+#### linemate.custom
 
 Connect nodes with your own custom algorithm.
 
@@ -99,7 +99,7 @@ In this example, we simply draw a wide pink line from the top left of the
 canvas (0, 0) to each node entry point.
 
 ```js
-linecook.custom('.node', {
+linemate.custom('.node', {
   color: 'pink',
   width: 30
 }, function(context, pnodes) {

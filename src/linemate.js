@@ -260,10 +260,10 @@ function custom(nodes, opts, doStrokes) {
   draw(nodes, options, doStrokes);
 }
 
-const linecook = {
+const linemate = {
   connect,
   complete,
   custom
 };
 
-export default linecook;
+export default linemate;

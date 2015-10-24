@@ -1,5 +1,5 @@
 {
-  "name": "linecook",
+  "name": "linemate",
   "version": "0.0.1",
   "devDependencies": {
     "babelify": "^6.4.0",
