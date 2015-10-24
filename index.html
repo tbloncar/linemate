@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Linemate by tbloncar</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Linemate</h1>
+        <p>Render canvas lines between DOM nodes with ease.</p>
+
+        <p class="view"><a href="https://github.com/tbloncar/linemate">View the Project on GitHub <small>tbloncar/linemate</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/tbloncar/linemate/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/tbloncar/linemate/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/tbloncar/linemate">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a id="dancers-linematejs" class="anchor" href="#dancers-linematejs" aria-hidden="true"><span class="octicon octicon-link"></span></a><img class="emoji" title=":dancers:" alt=":dancers:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f46f.png" height="20" width="20" align="absmiddle"> linemate.js</h2>
+
+<p>Render canvas lines between DOM nodes with ease.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>Install linemate with npm:</p>
+
+<pre><code>npm install --save linemate
+</code></pre>
+
+<p>No <code>npm</code>? Grab <code>linemate.min.js</code> from <code>dist/</code> and include it in your project.
+No dependencies are needed, and <code>linemate</code> is made global.</p>
+
+<h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<p>Use linemate to render canvas lines between DOM nodes.</p>
+
+<h4>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h4>
+
+<p>Connect three <code>div</code> elements with red, dashed lines.
+(Note that the options object is—as one might guess—<strong>optional</strong>. Defaults
+are detailed below.)</p>
+
+<p>Provide elements to connect:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>node<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>b<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>node<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>c<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>node<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<p>Use <code>linemate.connect</code> to add lines between the elements.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">window</span>.addEventListener(<span class="pl-s"><span class="pl-pds">'</span>load<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">e</span>) {
+  <span class="pl-c">// Render some canvas lines!</span>
+  linemate.connect(<span class="pl-s"><span class="pl-pds">'</span>.node<span class="pl-pds">'</span></span>, {
+    color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#ff3300<span class="pl-pds">'</span></span>,
+    dashed<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    width<span class="pl-k">:</span> <span class="pl-c1">10</span>
+  });
+});</pre></div>
+
+<h4>
+<a id="linemateconnect" class="anchor" href="#linemateconnect" aria-hidden="true"><span class="octicon octicon-link"></span></a>linemate.connect</h4>
+
+<p>Connect nodes such that the last node <strong>is not</strong> connected back to the first node.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/*</span>
+<span class="pl-c"> * Connect two or more DOM nodes without completeness.</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector</span>
+<span class="pl-c"> * @param {object} opts - An options object</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">connect</span>(<span class="pl-smi">nodes</span>, <span class="pl-smi">opts</span> <span class="pl-k">=</span> {}) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+
+<h4>
+<a id="linematecomplete" class="anchor" href="#linematecomplete" aria-hidden="true"><span class="octicon octicon-link"></span></a>linemate.complete</h4>
+
+<p>Connect nodes such that the last node <strong>is</strong> connected back to the first node.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/*</span>
+<span class="pl-c"> * Connect two or more DOM nodes with completeness.</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector</span>
+<span class="pl-c"> * @param {object} opts - An options object</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">complete</span>(<span class="pl-smi">nodes</span>, <span class="pl-smi">opts</span> <span class="pl-k">=</span> {}) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+
+<h4>
+<a id="linematecustom" class="anchor" href="#linematecustom" aria-hidden="true"><span class="octicon octicon-link"></span></a>linemate.custom</h4>
+
+<p>Connect nodes with your own custom algorithm.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/*</span>
+<span class="pl-c"> * Connect two or more DOM nodes with a custom</span>
+<span class="pl-c"> * stroke algorithm.</span>
+<span class="pl-c"> *</span>
+<span class="pl-c"> * @param {Array[Node]|string} nodes - Array of two or more DOM nodes or a selector</span>
+<span class="pl-c"> * @param {object} opts - An options object</span>
+<span class="pl-c"> * @param {function} doStrokes - Custom stroke algorithm callback</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">function</span> <span class="pl-en">custom</span>(<span class="pl-smi">nodes</span>, <span class="pl-smi">opts</span> <span class="pl-k">=</span> {}, <span class="pl-smi">doStrokes</span>) {
+  <span class="pl-c">// ...</span>
+}</pre></div>
+
+<h5>
+<a id="custom-example" class="anchor" href="#custom-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom Example</h5>
+
+<p>In the custom stroke algorithm callback, we have access to both the canvas
+<code>context</code> and the <code>pnodes</code> collection. The <code>pnodes</code> collection consists of
+objects with an <code>entryPoint</code> and <code>exitPoint</code>—these are canvas coordinates for
+each node derived from the <code>entryPoint</code> and <code>exitPoint</code> options. Each point has
+an <code>x</code> and a <code>y</code> property.</p>
+
+<p>In this example, we simply draw a wide pink line from the top left of the
+canvas (0, 0) to each node entry point.</p>
+
+<div class="highlight highlight-source-js"><pre>linemate.custom(<span class="pl-s"><span class="pl-pds">'</span>.node<span class="pl-pds">'</span></span>, {
+  color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>pink<span class="pl-pds">'</span></span>,
+  width<span class="pl-k">:</span> <span class="pl-c1">30</span>
+}, <span class="pl-k">function</span>(<span class="pl-smi">context</span>, <span class="pl-smi">pnodes</span>) {
+  context.<span class="pl-c1">moveTo</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+
+  <span class="pl-k">for</span>(<span class="pl-k">var</span> i <span class="pl-k">=</span> <span class="pl-c1">0</span>, l <span class="pl-k">=</span> pnodes.<span class="pl-c1">length</span>; i <span class="pl-k">&lt;</span> l; i<span class="pl-k">++</span>) {
+    <span class="pl-k">var</span> pnode <span class="pl-k">=</span> pnodes[i];
+
+    context.lineTo(pnode.entryPoint.<span class="pl-c1">x</span>, pnode.entryPoint.<span class="pl-c1">y</span>);
+    context.<span class="pl-c1">moveTo</span>(<span class="pl-c1">0</span>, <span class="pl-c1">0</span>);
+  }
+});</pre></div>
+
+<h3>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<p>The options object can be used to modify canvas line styles, node entry and exit points, etc.</p>
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cap</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap">CanvasRenderingContext2D.lineCap</a></td>
+<td>'round'</td>
+</tr>
+<tr>
+<td>color</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/strokeStyle">CanvasRenderingContext2D.strokeStyle</a></td>
+<td>'#000'</td>
+</tr>
+<tr>
+<td>dashed</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash">CanvasRenderingContext2D.setLineDash()</a></td>
+<td>false</td>
+</tr>
+<tr>
+<td>dashOffset</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset">CanvasRenderingContext2D.lineDashOffset</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td>dashSegments</td>
+<td>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash">CanvasRenderingContext2D.setLineDash()</a> segments</td>
+<td>[5, 15]</td>
+</tr>
+<tr>
+<td>entryPoint</td>
+<td>The location at which each node is entered by an incoming line (valid values outlined below)</td>
+<td>'center'</td>
+</tr>
+<tr>
+<td>exitPoint</td>
+<td>The location at which each node is exited by an outgoing line (valid values outlined below)</td>
+<td>'center'</td>
+</tr>
+<tr>
+<td>join</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin">CanvasRenderingContext2D.lineJoin</a></td>
+<td>'round'</td>
+</tr>
+<tr>
+<td>miterLimit</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit">CanvasRenderingContext2D.miterLimit</a></td>
+<td>10</td>
+</tr>
+<tr>
+<td>width</td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth">CanvasRenderingContext2D.lineWidth</a></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>Valid values for <code>entryPoint</code> and <code>exitPoint</code> options include the following:</p>
+
+<ul>
+<li>'center'</li>
+<li>'topLeft'</li>
+<li>'top'</li>
+<li>'topRight'</li>
+<li>'right'</li>
+<li>'bottomRight'</li>
+<li>'bottom'</li>
+<li>'bottomLeft'</li>
+<li>'left'</li>
+</ul>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>Copyright (c) 2015 Travis Loncar.</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/tbloncar">tbloncar</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
