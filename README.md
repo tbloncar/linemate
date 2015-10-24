@@ -90,7 +90,6 @@ function custom(nodes, opts = {}, doStrokes) {
   // ...
 }
 ```
-
 ##### Custom Example
 
 In the custom stroke algorithm callback, we have access to both the canvas
@@ -116,6 +115,43 @@ linemate.custom('.node', {
     context.moveTo(0, 0);
   }
 });
+```
+#### linemate.confine
+
+By default, linemate will append the canvas to `document.body`. If the nodes
+that you wish to connect are positioned absolutely within some parent element
+other than `document.body`, you'll want to confine linemate to that parent node.
+
+```js
+/*
+ * Confine linemate to a common parent node
+ * other than 'document.body'
+ *
+ * @param {string|Node} node - A selector or DOM node
+ */
+function confine(node) {
+  // ...
+}
+```
+
+##### Confine Example
+
+If we have an absolutely positioned `#container` node, we can confine our
+canvas to this parent node with `linemate.confine`.
+
+Child nodes within parent node:
+```html
+<div id="container">
+  <div id="a" class="node"></div>
+  <div id="b" class="node"></div>
+  <div id="c" class="node"></div>
+</div>
+```
+
+Confine canvas to parent node:
+```js
+linemate.confine('#container-1');
+linemate.connect('.node');
 ```
 
 ### Options

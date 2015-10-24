@@ -6,44 +6,25 @@
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
   </head>
   <body>
-    <div id="a" class="box"></div>
-    <div id="b" class="box"></div>
-    <div id="c" class="box"></div>
+    <div class="container" id="container-1">
+      <div id="a" class="node"></div>
+      <div id="b" class="node"></div>
+      <div id="c" class="node"></div>
+      <div id="d" class="node"></div>
+    </div>
     <script src="linemate.min.js"></script>
     <script>
       window.addEventListener('load', function(e) {
-        var anode = document.getElementById('a');
-        var bnode = document.getElementById('b');
-        var cnode = document.getElementById('c');
-
-        // Create an incomplete graph
-        linemate.connect('.box', {
-          color: '#ff3300',
-          dashed: true,
-          entryPoint: 'bottom',
-          exitPoint: 'top',
-          width: 10
-        });
-
-        // Create a complete graph
-        linemate.complete([anode, bnode, cnode], {
-          color: 'rgba(0,0,0,0.5)',
+        linemate.confine('#container-1');
+        linemate.complete('.node', {
+          color: '#eee',
           width: 20
         });
 
-        // Write a custom stroke function
-        linemate.custom([anode, bnode, cnode], {
-          color: 'pink',
-          width: 30
-        }, function(context, pnodes) {
-          context.moveTo(0, 0);
-
-          for(var i = 0, l = pnodes.length; i < l; i++) {
-            var pnode = pnodes[i];
-
-            context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
-            context.moveTo(0, 0);
-          }
+        linemate.complete('.node', {
+          color: '#ff3300',
+          dashed: true,
+          width: 5
         });
       });
     </script>

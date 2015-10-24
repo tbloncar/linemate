@@ -1,5 +1,7 @@
 import utils from './utils';
 
+let confinedTo = document.body;
+
 const pointLabels = {
   center: 0,
   topLeft: 1,
@@ -129,7 +131,7 @@ function createCanvas(bounds) {
 
   context.scale(ratio, ratio);
   styleCanvas(canvas, ratio, bounds);
-  document.body.appendChild(canvas);
+  confinedTo.appendChild(canvas);
 
   return context;
 }
@@ -201,6 +203,12 @@ function draw(nodes, opts, doStrokes) {
     }
   }
 
+  // If 'nodes' is an array of selectors,
+  // map to DOM nodes
+  if(typeof nodes[0] === 'string') {
+    nodes = nodes.map(n => document.querySelector(node));
+  }
+
   // Canvas setup and node processing
   const { context, pnodes } = setup(nodes, opts);
 
@@ -219,6 +227,20 @@ function doConnect(context, pnodes) {
 
     context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
     context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
+  }
+}
+
+/*
+ * Confine linemate to a common parent node
+ * other than 'document.body'
+ *
+ * @param {string|Node} node - A selector or DOM node
+ */
+function confine(node) {
+  if(typeof node === 'string') {
+    confinedTo = document.querySelector(node);
+  } else {
+    confinedTo = node;
   }
 }
 
@@ -261,6 +283,7 @@ function custom(nodes, opts, doStrokes) {
 }
 
 const linemate = {
+  confine,
   connect,
   complete,
   custom
