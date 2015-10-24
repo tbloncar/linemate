@@ -15,6 +15,8 @@ No dependencies are needed, and `linemate` is made global.
 
 Use linemate to render canvas lines between DOM nodes.
 
+[View Demo](http://codepen.io/tbloncar/pen/WQzQJa#0)
+
 #### Example
 
 Connect three `div` elements with red, dashed lines.
