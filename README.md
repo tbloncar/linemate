@@ -4,7 +4,11 @@ Render canvas lines between DOM nodes with ease.
 
 ### Installation
 
-For now, grab `linemate.min.js` from `dist/` and include it in your project.
+Install linemate with npm:
+
+    npm install --save linemate
+
+No `npm`? Grab `linemate.min.js` from `dist/` and include it in your project.
 No dependencies are needed, and `linemate` is made global.
 
 ### Usage
