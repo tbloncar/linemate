@@ -2,7 +2,13 @@
   "name": "linemate",
   "version": "0.0.1",
   "description": "Render canvas lines between DOM nodes with ease.",
-  "keywords": ["lines", "dom", "connect", "elements", "canvas"],
+  "keywords": [
+    "lines",
+    "dom",
+    "connect",
+    "elements",
+    "canvas"
+  ],
   "homepage": "https://github.com/tbloncar/linemate",
   "bugs": "https://github.com/tbloncar/linemate/issues",
   "license": "MIT",
@@ -14,7 +20,12 @@
     "type": "git",
     "url": "https://github.com/tbloncar/linemate"
   },
+  "scripts": {
+    "test": "node tests/runner.js | faucet"
+  },
   "devDependencies": {
+    "babel-core": "^5.8.29",
+    "babel-plugin-object-assign": "^1.2.1",
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",
     "gulp": "^3.9.0",
@@ -22,6 +33,8 @@
     "gulp-jshint": "^1.11.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
+    "tape": "^4.2.2",
+    "tape-run": "^1.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"

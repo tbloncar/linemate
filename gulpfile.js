@@ -21,7 +21,9 @@ gulp.task('lint', function() {
 });
 
 function compile(watch) {
-  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babel));
+  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babel.configure({
+    plugins: ['object-assign']
+  })));
 
   function rebundle() {
     bundler.bundle()

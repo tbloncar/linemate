@@ -14,7 +14,7 @@ const pointLabels = {
   left: 8,
 };
 
-const defaultOpts = {
+let defaultOpts = {
   cap: 'round',
   color: '#000',
   dashed: false,
@@ -237,6 +237,8 @@ function doConnect(context, pnodes) {
  */
 function defaults(custom = {}) {
   Object.assign(defaultOpts, custom);
+
+  return defaultOpts;
 }
 
 /*

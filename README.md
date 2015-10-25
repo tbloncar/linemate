@@ -200,6 +200,16 @@ Valid values for `entryPoint` and `exitPoint` options include the following:
 - 'bottomLeft'
 - 'left'
 
+### Testing
+
+Ensure that testing dependencies are installed:
+
+    npm install
+
+Run `tape` tests with `tape-run` and `faucet` output.
+
+    npm run test
+
 ### License
 
 Copyright (c) 2015 Travis Loncar.
