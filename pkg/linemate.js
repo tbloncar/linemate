@@ -5,7 +5,7 @@
  *  / / / / / /  __/ / / / / / /_/ / /_/  __/
  * /_/_/_/ /_/\___/_/ /_/ /_/\__,_/\__/\___/
 
- * linemate.js | version 0.1.2
+ * linemate.js | version 0.1.3
  * (c) Travis Loncar (https://github.com/tbloncar)
  */
 
