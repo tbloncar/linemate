@@ -5,12 +5,11 @@
  *  / / / / / /  __/ / / / / / /_/ / /_/  __/
  * /_/_/_/ /_/\___/_/ /_/ /_/\__,_/\__/\___/
 
- * linemate.js | version 0.1.3
+ * linemate.js | version 0.1.4
  * (c) Travis Loncar (https://github.com/tbloncar)
  */
 
 import utils from './utils';
-import polyfill from 'babel-core/polyfill';
 
 let confinedTo = document.body;
 let ratio = 1; // Canvas scale ratio

@@ -1,3 +1,4 @@
+import polyfill from 'babel-core/polyfill';
 import test from 'tape';
 import linemate from '../src/linemate';
 

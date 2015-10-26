@@ -5,7 +5,7 @@
  *  / / / / / /  __/ / / / / / /_/ / /_/  __/
  * /_/_/_/ /_/\___/_/ /_/ /_/\__,_/\__/\___/
 
- * linemate.js | version 0.1.3
+ * linemate.js | version 0.1.4
  * (c) Travis Loncar (https://github.com/tbloncar)
  */
 
@@ -24,10 +24,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _utils = require('./utils');
 
 var _utils2 = _interopRequireDefault(_utils);
-
-var _babelCorePolyfill = require('babel-core/polyfill');
-
-var _babelCorePolyfill2 = _interopRequireDefault(_babelCorePolyfill);
 
 var confinedTo = document.body;
 var ratio = 1; // Canvas scale ratio
