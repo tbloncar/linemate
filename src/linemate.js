@@ -1,3 +1,14 @@
+/**
+ *     ___                            __
+ *    / (_)___  ___  ____ ___  ____ _/ /____
+ *   / / / __ \/ _ \/ __ `__ \/ __ `/ __/ _ \
+ *  / / / / / /  __/ / / / / / /_/ / /_/  __/
+ * /_/_/_/ /_/\___/_/ /_/ /_/\__,_/\__/\___/
+
+ * linemate.js | version 0.1.2
+ * (c) Travis Loncar (https://github.com/tbloncar)
+ */
+
 import utils from './utils';
 
 let confinedTo = document.body;
@@ -302,5 +313,7 @@ const linemate = {
   complete,
   custom
 };
+
+window.linemate = linemate;
 
 export default linemate;

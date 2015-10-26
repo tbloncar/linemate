@@ -4,7 +4,8 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
-var babel = require('babelify');
+var babelify = require('babelify');
+var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 
@@ -20,8 +21,14 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
+gulp.task('babel', function() {
+  return gulp.src(paths.src)
+    .pipe(babel())
+    .pipe(gulp.dest('pkg/'));
+});
+
 function compile(watch) {
-  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babel.configure({
+  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babelify.configure({
     plugins: ['object-assign']
   })));
 
@@ -48,7 +55,7 @@ function compile(watch) {
 }
 
 function watch() {
-  gulp.watch(paths.src, ['lint'])
+  gulp.watch(paths.src, ['lint', 'babel'])
   return compile(true);
 };
 

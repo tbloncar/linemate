@@ -15,7 +15,7 @@
   "author": {
     "name": "Travis Loncar"
   },
-  "main": "./dist/linemate.min.js",
+  "main": "./pkg/linemate.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/tbloncar/linemate"
@@ -29,6 +29,7 @@
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.11.2",
     "gulp-sourcemaps": "^1.6.0",
