@@ -1,3 +1,4 @@
+var polyfill = require('babel-core/polyfill');
 var run = require('tape-run');
 var browserify = require('browserify');
 var babel = require('babelify');

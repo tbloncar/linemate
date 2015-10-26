@@ -10,10 +10,12 @@
  */
 
 import utils from './utils';
+import polyfill from 'babel-core/polyfill';
 
 let confinedTo = document.body;
-let ratio = 1;
+let ratio = 1; // Canvas scale ratio
 
+const canvasClass = 'linemate-canvas';
 const pointLabels = {
   center: 0,
   topLeft: 1,
@@ -123,9 +125,15 @@ class Point {
   }
 }
 
-function styleCanvas(canvas, ratio, bounds) {
+function decorateCanvas(canvas, ratio, bounds) {
   const canvasWidth = bounds.right - bounds.left;
   const canvasHeight = bounds.bottom - bounds.top;
+
+  if(canvas.classList) {
+    canvas.classList.add(canvasClass);
+  } else {
+    canvas.className += ` ${canvasClass}`;
+  }
 
   canvas.style.position = 'absolute';
   canvas.style['z-index'] = defaultOpts.zIndex;
@@ -143,7 +151,7 @@ function createCanvas(bounds) {
   ratio = utils.getCanvasScaleRatio(context);
 
   context.scale(ratio, ratio);
-  styleCanvas(canvas, ratio, bounds);
+  decorateCanvas(canvas, ratio, bounds);
   confinedTo.appendChild(canvas);
 
   return context;
@@ -269,6 +277,14 @@ function confine(node) {
 }
 
 /*
+ * Clear linemate canvases
+ */
+function clear() {
+  const canvasNodes = Array.from(confinedTo.querySelectorAll(`.${canvasClass}`));
+  canvasNodes.forEach(cn => confinedTo.removeChild(cn));
+}
+
+/*
  * Connect two or more DOM nodes without completeness.
  *
  * @param {Array[string]|string} nodes - Array of two or more selectors or a selector
@@ -309,6 +325,7 @@ function custom(nodes, opts, doStrokes) {
 const linemate = {
   defaults,
   confine,
+  clear,
   connect,
   complete,
   custom

@@ -28,7 +28,7 @@ gulp.task('babel', function() {
 });
 
 function compile(watch) {
-  var bundler = watchify(browserify('./src/index.js', { debug: true }).transform(babelify.configure({
+  var bundler = watchify(browserify('./src/linemate.js', { debug: true }).transform(babelify.configure({
     plugins: ['object-assign']
   })));
 

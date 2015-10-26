@@ -156,6 +156,19 @@ linemate.confine('#container-1');
 linemate.connect('.node');
 ```
 
+#### linemate.clear
+
+Remove canvas nodes inserted by linemate.
+
+```js
+/*
+ * Clear linemate canvases
+ */
+function clear() {
+  // ...
+}
+```
+
 #### linemate.defaults
 
 Set custom default options.
