@@ -187,6 +187,7 @@ The options object can be used to modify canvas line styles, node entry and exit
 | join            | [CanvasRenderingContext2D.lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) | 'round'
 | miterLimit      | [CanvasRenderingContext2D.miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) | 10
 | width           | [CanvasRenderingContext2D.lineWidth](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth) | 1
+| zIndex          | The z-index of the inserted canvas element | -1
 
 Valid values for `entryPoint` and `exitPoint` options include the following:
 

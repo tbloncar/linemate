@@ -1,6 +1,7 @@
 import utils from './utils';
 
 let confinedTo = document.body;
+let ratio = 1;
 
 const pointLabels = {
   center: 0,
@@ -24,7 +25,8 @@ let defaultOpts = {
   exitPoint: 'center',
   join: 'round',
   miterLimit: 10,
-  width: 1
+  width: 1,
+  zIndex: -1
 };
 
 class Node {
@@ -115,7 +117,7 @@ function styleCanvas(canvas, ratio, bounds) {
   const canvasHeight = bounds.bottom - bounds.top;
 
   canvas.style.position = 'absolute';
-  canvas.style['z-index'] = -1;
+  canvas.style['z-index'] = defaultOpts.zIndex;
   canvas.style.width = canvasWidth + 'px';
   canvas.style.height = canvasHeight + 'px';
   canvas.style.left = bounds.left + 'px';
@@ -127,7 +129,7 @@ function styleCanvas(canvas, ratio, bounds) {
 function createCanvas(bounds) {
   let canvas = document.createElement('canvas');
   let context = canvas.getContext('2d');
-  let ratio = utils.getCanvasScaleRatio(context);
+  ratio = utils.getCanvasScaleRatio(context);
 
   context.scale(ratio, ratio);
   styleCanvas(canvas, ratio, bounds);
@@ -220,13 +222,13 @@ function draw(nodes, opts, doStrokes) {
 }
 
 function doConnect(context, pnodes) {
-  context.moveTo(pnodes[0].exitPoint.x, pnodes[0].exitPoint.y);
+  context.moveTo(pnodes[0].exitPoint.x * ratio, pnodes[0].exitPoint.y * ratio);
 
   for(let i = 1, l = pnodes.length; i < l; i++) {
     let pnode = pnodes[i];
 
-    context.lineTo(pnode.entryPoint.x, pnode.entryPoint.y);
-    context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
+    context.lineTo(pnode.entryPoint.x * ratio, pnode.entryPoint.y * ratio);
+    context.moveTo(pnode.exitPoint.x * ratio, pnode.exitPoint.y * ratio);
   }
 }
 
@@ -276,7 +278,7 @@ function complete(nodes, opts = {}) {
     doConnect(context, pnodes);
 
     // Connect back to first node to complete path
-    context.lineTo(pnodes[0].entryPoint.x, pnodes[0].entryPoint.y);
+    context.lineTo(pnodes[0].entryPoint.x * ratio, pnodes[0].entryPoint.y * ratio);
   });
 }
 
