@@ -204,7 +204,6 @@ function getCanvasBounds(nodes) {
 }
 
 function setup(nodes, opts) {
-  opts = Object.assign({}, defaultOpts, opts);
   nodes = nodes.map(function (node) {
     return new Node(node, opts);
   });
@@ -238,6 +237,8 @@ function setup(nodes, opts) {
 }
 
 function draw(nodes, opts, doStrokes) {
+  opts = Object.assign({}, defaultOpts, opts);
+
   // Use selector to collect nodes
   if (typeof nodes === 'string') {
     var selector = nodes;
@@ -396,16 +397,14 @@ function connect(nodes) {
 function complete(nodes) {
   var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  opts = Object.assign({}, defaultOpts, opts);
-
-  draw(nodes, opts, function (context, pnodes, opts) {
-    doConnect(context, pnodes, opts);
+  draw(nodes, opts, function (context, pnodes, options) {
+    doConnect(context, pnodes, options);
 
     var firstNode = pnodes[0];
     var lastNode = pnodes[pnodes.length - 1];
 
     // Connect back to first node to complete path
-    switch (opts.path) {
+    switch (options.path) {
       case 'shortest':
         drawShortestPath(context, firstNode);
         break;
