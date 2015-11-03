@@ -260,7 +260,7 @@ function draw(nodes, opts, doStrokes) {
   // map to DOM nodes
   if (typeof nodes[0] === 'string') {
     nodes = nodes.map(function (n) {
-      return document.querySelector(node);
+      return document.querySelector(n);
     });
   }
 
@@ -334,7 +334,7 @@ function doConnect(context, pnodes, opts) {
         throw 'Invalid path value!';
     }
 
-    context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
+    context.moveTo(pnode.exitPoint.x * ratio, pnode.exitPoint.y * ratio);
   }
 }
 

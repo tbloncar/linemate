@@ -227,7 +227,7 @@ function draw(nodes, opts, doStrokes) {
   // If 'nodes' is an array of selectors,
   // map to DOM nodes
   if(typeof nodes[0] === 'string') {
-    nodes = nodes.map(n => document.querySelector(node));
+    nodes = nodes.map(n => document.querySelector(n));
   }
 
   // Canvas setup and node processing
@@ -296,7 +296,7 @@ function doConnect(context, pnodes, opts) {
       throw 'Invalid path value!';
     }
 
-    context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
+    context.moveTo(pnode.exitPoint.x * ratio, pnode.exitPoint.y * ratio);
   }
 }
 
