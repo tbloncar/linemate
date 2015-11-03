@@ -199,7 +199,7 @@ The options object can be used to modify canvas line styles, node entry and exit
 | exitPoint       | The location at which each node is exited by an outgoing line (valid values outlined below) | 'center'
 | join            | [CanvasRenderingContext2D.lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) | 'round'
 | miterLimit      | [CanvasRenderingContext2D.miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) | 10
-| path            | The path that the canvas line takes between nodes (valid values outlined below) | 'shortest'
+| path            | The path that the canvas lines take between nodes (valid values outlined below) | 'shortest'
 | width           | [CanvasRenderingContext2D.lineWidth](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth) | 1
 | zIndex          | The z-index of the inserted canvas element | -1
 

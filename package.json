@@ -1,6 +1,6 @@
 {
   "name": "linemate",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Render canvas lines between DOM nodes with ease.",
   "keywords": [
     "lines",

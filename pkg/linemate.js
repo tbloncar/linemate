@@ -330,6 +330,8 @@ function doConnect(context, pnodes, opts) {
       case 'square-h':
         drawSquareHPath(context, lastNode, pnode);
         break;
+      default:
+        throw 'Invalid path value!';
     }
 
     context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
@@ -413,6 +415,8 @@ function complete(nodes) {
       case 'square-h':
         drawSquareHPath(context, lastNode, firstNode);
         break;
+      default:
+        throw 'Invalid path value!';
     }
   });
 }
