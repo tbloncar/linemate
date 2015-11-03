@@ -1,3 +1,7 @@
+body {
+  background: #ccc;
+}
+
 .container {
   margin: 50px auto;
   width: 800px;
@@ -16,7 +20,7 @@
 
 #a {
   left: 5%;
-  top: 125px;
+  top: 225px;
 }
 
 #b {
@@ -26,10 +30,10 @@
 
 #c {
   right: 5%;
-  top: 125px;
+  top: 225px;
 }
 
 #d {
   left: 40%;
-  top: 200px;
+  top: 400px;
 }

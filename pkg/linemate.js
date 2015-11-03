@@ -51,6 +51,7 @@ var defaultOpts = {
   exitPoint: 'center',
   join: 'round',
   miterLimit: 10,
+  path: 'shortest',
   width: 1,
   zIndex: -1
 };
@@ -271,20 +272,67 @@ function draw(nodes, opts, doStrokes) {
   var pnodes = _setup.pnodes;
 
   // Method-specific stroke algorithm
-  doStrokes(context, pnodes);
+  doStrokes(context, pnodes, opts);
 
   // Commence stroke
   context.stroke();
 }
 
-function doConnect(context, pnodes) {
+// Draw strategy for "shortest" path
+function drawShortestPath(context, nextNode) {
+  context.lineTo(nextNode.entryPoint.x * ratio, nextNode.entryPoint.y * ratio);
+}
+
+// Draw strategy for "square-v" path
+function drawSquareVPath(context, lastNode, nextNode) {
+  var lastExitPoint = new Point(lastNode.exitPoint.x * ratio, lastNode.exitPoint.y * ratio);
+  var nextEntryPoint = new Point(nextNode.entryPoint.x * ratio, nextNode.entryPoint.y * ratio);
+  var minY = Math.min(lastExitPoint.y, nextEntryPoint.y);
+  var midY = minY + Math.abs(lastExitPoint.y - nextEntryPoint.y) / 2;
+
+  context.lineTo(lastExitPoint.x, midY);
+  context.moveTo(lastExitPoint.x, midY);
+  context.lineTo(nextEntryPoint.x, midY);
+  context.moveTo(nextEntryPoint.x, midY);
+  context.lineTo(nextEntryPoint.x, nextEntryPoint.y);
+  context.moveTo(nextEntryPoint.x, nextEntryPoint.y);
+}
+
+// Draw strategy for "square-h" path
+function drawSquareHPath(context, lastNode, nextNode) {
+  var lastExitPoint = new Point(lastNode.exitPoint.x * ratio, lastNode.exitPoint.y * ratio);
+  var nextEntryPoint = new Point(nextNode.entryPoint.x * ratio, nextNode.entryPoint.y * ratio);
+  var minX = Math.min(lastExitPoint.x, nextEntryPoint.x);
+  var midX = minX + Math.abs(lastExitPoint.x - nextEntryPoint.x) / 2;
+
+  context.lineTo(midX, lastExitPoint.y);
+  context.moveTo(midX, lastExitPoint.y);
+  context.lineTo(midX, nextEntryPoint.y);
+  context.moveTo(midX, nextEntryPoint.y);
+  context.lineTo(nextEntryPoint.x, nextEntryPoint.y);
+  context.moveTo(nextEntryPoint.x, nextEntryPoint.y);
+}
+
+function doConnect(context, pnodes, opts) {
   context.moveTo(pnodes[0].exitPoint.x * ratio, pnodes[0].exitPoint.y * ratio);
 
   for (var i = 1, l = pnodes.length; i < l; i++) {
+    var lastNode = pnodes[i - 1];
     var pnode = pnodes[i];
 
-    context.lineTo(pnode.entryPoint.x * ratio, pnode.entryPoint.y * ratio);
-    context.moveTo(pnode.exitPoint.x * ratio, pnode.exitPoint.y * ratio);
+    switch (opts.path) {
+      case 'shortest':
+        drawShortestPath(context, pnode);
+        break;
+      case 'square-v':
+        drawSquareVPath(context, lastNode, pnode);
+        break;
+      case 'square-h':
+        drawSquareHPath(context, lastNode, pnode);
+        break;
+    }
+
+    context.moveTo(pnode.exitPoint.x, pnode.exitPoint.y);
   }
 }
 
@@ -346,11 +394,26 @@ function connect(nodes) {
 function complete(nodes) {
   var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  draw(nodes, opts, function (context, pnodes) {
-    doConnect(context, pnodes);
+  opts = Object.assign({}, defaultOpts, opts);
+
+  draw(nodes, opts, function (context, pnodes, opts) {
+    doConnect(context, pnodes, opts);
+
+    var firstNode = pnodes[0];
+    var lastNode = pnodes[pnodes.length - 1];
 
     // Connect back to first node to complete path
-    context.lineTo(pnodes[0].entryPoint.x * ratio, pnodes[0].entryPoint.y * ratio);
+    switch (opts.path) {
+      case 'shortest':
+        drawShortestPath(context, firstNode);
+        break;
+      case 'square-v':
+        drawSquareVPath(context, lastNode, firstNode);
+        break;
+      case 'square-h':
+        drawSquareHPath(context, lastNode, firstNode);
+        break;
+    }
   });
 }
 

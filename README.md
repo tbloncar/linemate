@@ -94,8 +94,8 @@ function custom(nodes, opts = {}, doStrokes) {
 ```
 ##### Custom Example
 
-In the custom stroke algorithm callback, we have access to both the canvas
-`context` and the `pnodes` collection. The `pnodes` collection consists of
+In the custom stroke algorithm callback, we have access to the canvas
+`context`, the `pnodes` collection, and the `options` object. The `pnodes` collection consists of
 objects with an `entryPoint` and `exitPoint`—these are canvas coordinates for
 each node derived from the `entryPoint` and `exitPoint` options. Each point has
 an `x` and a `y` property.
@@ -107,7 +107,7 @@ canvas (0, 0) to each node entry point.
 linemate.custom('.node', {
   color: 'pink',
   width: 30
-}, function(context, pnodes) {
+}, function(context, pnodes, options) {
   context.moveTo(0, 0);
 
   for(var i = 0, l = pnodes.length; i < l; i++) {
@@ -199,8 +199,15 @@ The options object can be used to modify canvas line styles, node entry and exit
 | exitPoint       | The location at which each node is exited by an outgoing line (valid values outlined below) | 'center'
 | join            | [CanvasRenderingContext2D.lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) | 'round'
 | miterLimit      | [CanvasRenderingContext2D.miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) | 10
+| path            | The path that the canvas line takes between nodes (valid values outlined below) | 'shortest'
 | width           | [CanvasRenderingContext2D.lineWidth](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineWidth) | 1
 | zIndex          | The z-index of the inserted canvas element | -1
+
+Valid values for the `path` option include the following:
+
+- 'shortest' (a straight line between an exitPoint and entryPoint)
+- 'square-v' (a vertical-first elbow between an exitPoint and entryPoint)
+- 'square-h' (a horizontal-first elbow between an exitPoint and entryPoint)
 
 Valid values for `entryPoint` and `exitPoint` options include the following:
 
