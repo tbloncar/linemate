@@ -1,5 +1,7 @@
 ## :dancers: linemate.js
 
+[![npm version](https://img.shields.io/npm/v/linemate.svg)](https://www.npmjs.com/package/linemate)
+
 Render canvas lines between DOM nodes with ease.
 
 ### Installation
